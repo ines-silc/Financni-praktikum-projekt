@@ -1,0 +1,46 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[top=1.3in, bottom=1.3in, left=1.25in, right=1.25in]{geometry}
+
+\begin{document}
+\parindent = 8mm
+\begin{center}
+\textbf{Reševanje problema trgovskega potnika s k-optimalnim in Lin-Kernighanovim algoritmom}\\
+\vspace{5 mm}
+\textbf{Žan Jernejčič in Ines Šilc}
+\end{center}
+
+V projektni nalogi bova reševala Problem trgovskega potnika s pomočjo k-optimalnega in Lin-Kernighanovega algoritma.\\
+
+Problem trgovskega potnika oziroma Travelling salesman problem (krajše TSP) je problem, kjer imamo podanih $n$ mest in razdalje med vsemi (za vsak par mest imamo torej podano, koliko sta si oddaljeni). Zanima nas, ali lahko obiščemo vsako mesto in se na koncu vrnemo v prvotno mesto. Če označimo $d_{i, j}$ kot razdaljo mad $i$-tim in $j$-tim mestom, iščemo torej:
+
+$$
+\min_{\pi \in S_n} \sum\limits_{i=1}^n d_{\pi (i), \pi (i+1)} + d_{\pi (n), \pi (i)}
+$$
+ kjer je $S_n$ množica vseh permutacij danih $n$ mest.
+ 
+Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mesta v vsako drugo mesto, si zapišemo vse kombinacije in kakšno razdaljo smo prepotovali, ter izberemo tisto možnost, kjer je bila razdalja najkrajša. Poskusimo še z drugimi rešitvami.
+
+\vspace{5 mm}
+\textbf{K-optimalni algoritem}
+
+
+
+
+\vspace{5 mm}
+\textbf{Lin-Kernighanov algoritem}
+
+
+
+
+
+
+
+
+
+\end{document}
