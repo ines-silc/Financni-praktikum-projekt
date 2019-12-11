@@ -20,7 +20,7 @@ V projektni nalogi bova reševala Problem trgovskega potnika s pomočjo k-optima
 Problem trgovskega potnika oziroma Travelling salesman problem (krajše TSP) je problem, kjer imamo podanih $n$ mest in razdalje med vsemi (za vsak par mest imamo torej podano, koliko sta si oddaljeni). Zanima nas, ali lahko obiščemo vsako mesto in se na koncu vrnemo v prvotno mesto. Če označimo $d_{i, j}$ kot razdaljo mad $i$-tim in $j$-tim mestom, iščemo torej:
 
 $$
-\min_{\pi \in S_n} \sum\limits_{i=1}^n d_{\pi (i), \pi (i+1)} + d_{\pi (n), \pi (i)}
+\min_{\pi \in S_n} \sum\limits_{i=1}^{n-1} d_{\pi (i), \pi (i+1)} + d_{\pi (n), \pi (i)}
 $$
  kjer je $S_n$ množica vseh permutacij danih $n$ mest.
  
