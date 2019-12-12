@@ -33,14 +33,20 @@ Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mest
 
 
 \vspace{5 mm}
-\textbf{Lin-Kernighanov algoritem}
+\textbf{Lin-Kernighanov algoritem}\\
 
+Glavna razlika med k-optimalnim in Lin-Kernighanovim algoritmom je, da si pri k-optimalnemu na začetku izbremo fiksen $k$, medtem ko pri Lin-Kernighanovemu na vsakem koraku pogledamo kakšen $k$ bi se nam najbolj splačalo vzeti. Lin-Kernighanov algoritem na vsakem koraku začne s $k=2$ in $k$ povečuje dokler ne najde zamenjave, ki bi skrajšala trenutni obhod. Če jo najde, potem ponastavi vrednost $k$ nazaj na $2$ in začne novo iteracijo. Če algoritem preizkusi vse možne zamenjave in ne najde izboljšave, potem je dobljena rešitev lokalni minimum. \\
 
+Na vsakem koraku gradimo množici A in B, ki predstavljata množico povezav, ki jih bomo odstranili iz obhoda $A=\{a_1, \dots a_n\}$ in množico povezav, ki jih bomo dodali $B=\{b_1, \dots, b_n\}$. Množicama na vsakem koraku dodamo para povezav$(a_i, b_i)$. Da poenostavimo delovanje algoritma, morata množici zadoščati nekaterim kriterijem. 
+\begin{itemize}
 
+\item Množici A in B morata biti disjunktni.  
+\item Povezavi $a_i$ iz A in $b_i$ iz B imata skupno vozlišče ter $b_i$ in  $a_{i+1}$ tudi. Če je veriga povezav $(a_1, b_1,\dots a_n, b_n)$ sklenjena rečemo, da je menjava zaporedna. Tako dovolimo le zaporedne menjave
+\item Naj bo povezava $a_i = (t_{2i-1}, t_{2i})$  iz A in $i\ge 3$. Če povežemo vozlišči $t_{2i}$ in $t_1$, potem dodane in odstranjene povezave tvorijo cikel.
+\item Naj bo $c(a_i)$ dolžina povezave $a_i$ in naj bo $p_i = c(a_i) - c(b_i)$ dobiček zamenjave $a_i$ z $b_i$. Potem je vsak delni dobiček $P_i = p_1 + p_2 + \cdots + p_i$ pozitiven.
 
+\end{itemize}
 
-
-
-
+Ko uvedemo te kriterije omejimo iskalno območje le na povezave, ki bolj verjetno izboljšajo obhod in tako dobimo lokalni minimum.
 
 \end{document}
