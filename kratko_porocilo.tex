@@ -27,9 +27,11 @@ $$
 Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mesta v vsako drugo mesto, si zapišemo vse kombinacije in kakšno razdaljo smo prepotovali, ter izberemo tisto možnost, kjer je bila razdalja najkrajša. Poskusimo še z drugimi rešitvami.
 
 \vspace{5 mm}
-\textbf{K-optimalni algoritem}
+\textbf{K-optimalni algoritem}\\
 
+K-optimalni algoritem, je lokalni algoritem, kjer iščemo rešitev Problema trgovskega potnika in sorodnih problemov. Algoritem deluje tako, da zmanjša dolžino trenutnega potovanja, dokler ne dosežemo poti, katere dolžine ne moremo izboljšati.
 
+Poznamo dve glavni različici k-opt algoritma, to sta 2-Opt in 3-Opt algoritem. 2-Opt algoritem deluje tako, da odstrani dve vozlišči grafa (dve mesti), tako razdeli pot na dva dela, poišče najboljšo rešitev podproblema, in nato poveže nazaj mesti na najboljši možen način. 3-Opt algoritem odstrani tri povezave ali vozlišča, tako dobimo 3 podomrežja mest. V naslednjem koraku analiziramo najboljšo pot med temi tremi podomrežji. To ponavljamo za druge tri povezave, dokler nismo poskusili vseh možnih poti v danem omrežju.
 
 
 \vspace{5 mm}
@@ -49,4 +51,15 @@ Na vsakem koraku gradimo množici A in B, ki predstavljata množico povezav, ki 
 
 Ko uvedemo te kriterije omejimo iskalno območje le na povezave, ki bolj verjetno izboljšajo obhod in tako dobimo lokalni minimum.
 
+\vspace{5 mm}
+\textbf{Načrt dela}\\
+
+V projektu bova najprej definirala vse potrebne funkcije za generiranje grafov in osnovnih operacij nad njimi, nato pa bova izpeljala oba algoritma na čim več različnih grafih in primerjala rezultate in zahtevnost obeh algoritmov.
+
+\vspace{5 mm}
+\textbf{Viri}:
+
+\begin{itemize}
+\item Johnson, D. S., \& McGeoch, L. A. (1997). \textit{The traveling salesman problem: A case study in local optimization. Local search in combinatorial optimization}, 1(1), 215-310.
+\end{itemize}
 \end{document}
