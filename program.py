@@ -131,6 +131,12 @@ mpl.show()
 # Sedaj moramo iz prvotnega grafa odstraniti preostale povezave
 najboljsa_pot = poti_in_cene[0][0]
 
+resena_matrika2 = [[0 for col in range(len(najboljsa_pot)-1)] for row in range(len(najboljsa_pot)-1)]
+for i in range(len(najboljsa_pot)-2):
+    resena_matrika2[i][i+1] = testna_matrika2[i][i+1]
+print(resena_matrika2)
+    
+
 def razredci_graf(matrika, pot):
     g = nx.MultiGraph()
     for i in range(len(pot)-2):
@@ -143,6 +149,10 @@ nx.draw(rtg2, pos = nx.circular_layout(rtg2), with_labels = True)
 nx.draw_networkx_edge_labels(rtg2, pos = nx.circular_layout(rtg2), labels = nx.get_edge_attributes(rtg2, 'weight'))
 mpl.show()
 
+rtg3 = pretvori_matriko_v_graf(resena_matrika2)
+nx.draw(rtg3, pos = nx.circular_layout(rtg3), with_labels = True)
+nx.draw_networkx_edge_labels(rtg3, pos = nx.circular_layout(rtg3), labels = nx.get_edge_attributes(rtg3, 'weight'))
+mpl.show()
 
 
 
