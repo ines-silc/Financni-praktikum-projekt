@@ -10,6 +10,7 @@
 \usepackage{indentfirst}
 \setlength{\parindent}{0.5cm}
 
+
 \begin{document}
 
 \begin{titlepage}
@@ -64,11 +65,17 @@ Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva nasle
 
 \item \texttt{}
 
+\item \texttt{}
+
+\item \texttt{}
+
 \item \texttt{random}: za generiranje naključnih števil in seznamov
 
 \item \texttt{matplotlib}: za izrisovanje grafov
 
 \item \texttt{time}: za mertive časovne zahtevnosti
+
+\item \texttt{itertools}: za generiranje prvotne permutacije
 
 \end{itemize}
 
@@ -101,7 +108,53 @@ Za preverjanje veljavnosti poti v grafu za problem potujočega trgovca, morava v
 \newpage
 \section[k-optimalni algoritmi]{k-optimalni algoritmi}
 
+K-optimalni algoritem, je lokalni algoritem, kjer iščemo rešitev Problema trgovskega potnika in sorodnih problemov. Algoritem deluje tako, da zmanjša dolžino trenutnega potovanja, dokler ne dosežemo poti, katere dolžine ne moremo izboljšati.\\
+
+Poznamo dve glavni različici k-opt algoritma, to sta 2-Opt in 3-Opt algoritem. 2-Opt algoritem deluje tako, da odstrani dve vozlišči grafa (dve mesti), tako razdeli pot na dva dela, poišče najboljšo rešitev podproblema, in nato poveže nazaj mesti na najboljši možen način. 3-Opt algoritem odstrani tri povezave ali vozlišča, tako dobimo 3 podomrežja mest. V naslednjem koraku analiziramo najboljšo pot med temi tremi podomrežji. To ponavljamo za druge tri povezave, dokler nismo poskusili vseh možnih poti v danem omrežju.
+
 \subsection[2-opt algoritem]{2-opt algoritem}
+
+\begin{verbatim}
+
+def dva_opt(graf, pot):
+
+    najboljsa_pot = pot
+
+    izboljsanje = True
+    while izboljsanje:
+        izboljsanje = False
+        for i in range(1, len(pot) - 2):
+
+            for j in range(i + 1, len(pot)):
+
+                if j - i == 1: continue
+                nova_pot = pot
+                nova_pot[i:j] = pot[j - 1:i - 1:-1]
+
+                if cena_poti(graf, nova_pot) < cena_poti(graf, najboljsa_pot):
+                    najboljsa_pot = nova_pot
+                    izboljsanje = True
+        pot = najboljsa_pot
+
+    return (pot, cena_poti(graf, pot))
+
+\end{verbatim}
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primer.png}
+    \caption{Primer}
+    \label{primer_2_opt}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{resitev_primer.png}
+    \caption{Rešitev}
+    \label{resitev_2_opt}
+  \end{minipage}
+    
+\end{figure}
 
 \subsection[3-opt algoritem]{3-opt algoritem}
 
