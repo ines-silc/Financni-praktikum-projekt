@@ -1,6 +1,6 @@
 # k-opt-and-Lin-Kernighan-algorithms
 
-Kratko poročilo se nahaja v datoteki `kratko_porocilo.pdf`
+Kratko poročilo se nahaja v mapi `kratko_porcilo` v datoteki `kratko_porocilo.pdf`
 
 ## Dana navodila
 
