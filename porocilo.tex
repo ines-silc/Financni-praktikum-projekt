@@ -52,7 +52,7 @@ $$
  
 Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mesta v vsako drugo mesto, si zapišemo vse kombinacije in kakšno razdaljo smo prepotovali, ter izberemo tisto možnost, kjer je bila razdalja najkrajša.\\ 
 
-Pred začetkom se lahko vprašamo kakšen mora biti graf, da lahko na njem izvajamo sledeča algoritma. Graf \textbf{ne sme} imeti \textbf{negativnih ciklov}, saj je najcenejši cikel potem očiten, in ustvarimo neskončno zanko, saj bo imela najboljša rešitev ceno -$\infty$. \\
+Pred začetkom se lahko vprašamo kakšen mora biti graf, da lahko na njem izvajamo sledeča algoritma. Graf \textbf{ne sme} imeti \textbf{negativnih ciklov}, saj je najcenejši cikel potem očiten, in ustvarimo neskončno zanko, saj bo imela najboljša rešitev ceno -$\infty$. Ker imamo opravka s cikli, lahko cikel začnemo v kateremkoli vozlišču, zato lahko vedno gledamo možne poti od začetka.\\
 
 Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva naslednje pakete:
 
@@ -64,7 +64,7 @@ Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva nasle
 
 \item \texttt{}
 
-\item \texttt{}
+\item \texttt{random}: za generiranje naključnih števil in seznamov
 
 \item \texttt{matplotlib}: za izrisovanje grafov
 
@@ -110,5 +110,11 @@ Za preverjanje veljavnosti poti v grafu za problem potujočega trgovca, morava v
 
 \newpage
 \section[Viri]{Viri}
+
+\begin{enumerate}
+
+\item A. Hagberg, D. Schult, P. Swart:\emph{NetworkX Refrence, Release 2.4}, [ogled 2.~1.~2020], dostopno na \url{https://networkx.github.io/documentation/stable/_downloads/networkx_reference.pdf}
+
+\end{enumerate}
 
 \end{document}
