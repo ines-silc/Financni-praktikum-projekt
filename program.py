@@ -37,7 +37,7 @@ h = nx.complete_graph(8)
 ##Dolžina poti: pot.size()
 
 ##Pretvorimo graf v matriko, za izvajanje algoritma:
-##Še nista čist ok naslednji funkciji !!!!!!!!!!
+##Še ni čisto ok naslednji funkcija !!!!!!!!!!
 def pretvori_graf_v_matriko(graf):
     m = nx.attr_matrix(graf, edge_attr = 'weight')[0]
     gm = []
@@ -68,12 +68,6 @@ def cena_poti(graf, pot):
     for i in range(len(pot)-1):
         cena = cena + graf[pot[i]][pot[i+1]]
     return cena
-
-testna_matrika1 = [[0, 2, 3, 4, 5],
-                 [2, 0, 8, 9, 10],
-                 [3, 8, 0, 14, 15],
-                 [4, 9, 14, 0, 20],
-                 [5, 10, 15, 20, 0]]
 
 def dva_opt(graf, pot):
     najboljsa_pot = pot
