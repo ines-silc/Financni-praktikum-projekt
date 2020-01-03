@@ -51,9 +51,7 @@ def pretvori_graf_v_matriko(graf):
 def pretvori_matriko_v_graf(matrika):
     g = nx.MultiGraph()
     for i in range(len(matrika[0])):
-        #print('i je', i)
         for j in range(len(matrika)):
-            #print('j je', j)
             if i == j:
                 g.add_edge(i, j)
             else:
@@ -61,7 +59,6 @@ def pretvori_matriko_v_graf(matrika):
                     pass
                 else:
                     g.add_weighted_edges_from([(i, j, matrika[i][j])])
-                #print("V slovar sem dodal povezavo", i, j, 'in utež', matrika[i][j])
     return g
 
 #V nadaljevanju bo algoritem osnovan na delu z matriko
@@ -69,7 +66,7 @@ def pretvori_matriko_v_graf(matrika):
 def cena_poti(graf, pot):
     cena = 0
     for i in range(len(pot)-1):
-        cena += graf[pot[i]][pot[i+1]]
+        cena = cena + graf[pot[i]][pot[i+1]]
     return cena
 
 testna_matrika1 = [[0, 2, 3, 4, 5],
@@ -89,7 +86,7 @@ def dva_opt(graf, pot):
     izboljsanje = True
     while izboljsanje:
         izboljsanje = False
-        for i in range(1, len(pot) - 2):
+        for i in range(1,len(pot) - 2):
             #print('delam prvo')
             for j in range(i + 1, len(pot)):
                 #print('delam drugo')
@@ -131,23 +128,25 @@ mpl.show()
 # Sedaj moramo iz prvotnega grafa odstraniti preostale povezave
 najboljsa_pot = poti_in_cene[0][0]
 
-resena_matrika2 = [[0 for col in range(len(najboljsa_pot)-1)] for row in range(len(najboljsa_pot)-1)]
-for i in range(len(najboljsa_pot)-2):
-    resena_matrika2[i][i+1] = testna_matrika2[i][i+1]
-print(resena_matrika2)
+resena_matrika2 = [[0 for col in range(len(testna_matrika2))] for row in range(len(testna_matrika2))]
+print('V matriko bom pretvoril pot', najboljsa_pot)
+for i in range(len(najboljsa_pot)-1):
+    print('Na mesto', najboljsa_pot[i], najboljsa_pot[i+1], 'dodajam element', testna_matrika2[najboljsa_pot[i]][najboljsa_pot[i+1]])
+    resena_matrika2[najboljsa_pot[i]][najboljsa_pot[i+1]] = testna_matrika2[najboljsa_pot[i]][najboljsa_pot[i+1]]
+print('Rešena matrika je', resena_matrika2)
     
 
-def razredci_graf(matrika, pot):
-    g = nx.MultiGraph()
-    for i in range(len(pot)-2):
-        g.add_weighted_edges_from([(pot[i], pot[i+1], matrika[pot[i]][pot[i+1]])])
-        print("V graf sem dodal povezavo", i, i+1, 'in utež', matrika[pot[i]][pot[i+1]])
-    return g
-
-rtg2 = razredci_graf(testna_matrika2, najboljsa_pot)
-nx.draw(rtg2, pos = nx.circular_layout(rtg2), with_labels = True)
-nx.draw_networkx_edge_labels(rtg2, pos = nx.circular_layout(rtg2), labels = nx.get_edge_attributes(rtg2, 'weight'))
-mpl.show()
+##def razredci_graf(matrika, pot):
+##    g = nx.MultiGraph()
+##    for i in range(len(pot)-2):
+##        g.add_weighted_edges_from([(pot[i], pot[i+1], matrika[pot[i]][pot[i+1]])])
+##        print("V graf sem dodal povezavo", i, i+1, 'in utež', matrika[pot[i]][pot[i+1]])
+##    return g
+##
+##rtg2 = razredci_graf(testna_matrika2, najboljsa_pot)
+##nx.draw(rtg2, pos = nx.circular_layout(rtg2), with_labels = True)
+##nx.draw_networkx_edge_labels(rtg2, pos = nx.circular_layout(rtg2), labels = nx.get_edge_attributes(rtg2, 'weight'))
+##mpl.show()
 
 rtg3 = pretvori_matriko_v_graf(resena_matrika2)
 nx.draw(rtg3, pos = nx.circular_layout(rtg3), with_labels = True)
