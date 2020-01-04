@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm]{geometry}
 \usepackage{indentfirst}
+\usepackage{tikz}
 \setlength{\parindent}{0.5cm}
 
 
@@ -126,6 +127,54 @@ def dva_opt(graf, pot):
 
 \end{verbatim}
 
+Algoritem gre postopoma po poti in zamenja zaporedje vozlišč, če je le tako bolj optimalno. Dva koraka 2-opt algoritma bi izgledala takole:\\
+
+\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
+  \node (n0) at (1,8) {0};
+  \node (n1) at (5,10)  {1};
+  \node (n2) at (9,8)  {2};
+  \node (n5) at (1,4) {5};
+  \node (n4) at (5,2)  {4};
+  \node (n3) at (9,4)  {3};
+
+  \foreach \from/\to in {n0/n1,n1/n2,n2/n3,n3/n4,n4/n5,n5/n0}
+    \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
+  \node (n0) at (1,8) {0};
+  \node (n1) at (5,10)  {1};
+  \node (n2) at (9,8)  {2};
+  \node (n5) at (1,4) {5};
+  \node (n4) at (5,2)  {4};
+  \node (n3) at (9,4)  {3};
+
+  \foreach \from/\to in {n0/n2,n1/n2,n1/n3,n3/n4,n4/n5,n5/n0}
+    \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+
+\begin{tikzpicture}
+  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
+  \node (n0) at (1,8) {0};
+  \node (n1) at (5,10)  {1};
+  \node (n2) at (9,8)  {2};
+  \node (n5) at (1,4) {5};
+  \node (n4) at (5,2)  {4};
+  \node (n3) at (9,4)  {3};
+
+  \foreach \from/\to in {n0/n2,n1/n2,n1/n3,n3/n5,n4/n5,n4/n0}
+    \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{minipage}\\\vspace{0.5cm}
+
 Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j)$-tem mestu matrike je cena med mestoma $i$ in $j$. Dana je matrika (\ref{matrika}) in njen graf je narisan na sliki \ref{primer_2_opt}
 \begin{equation}
 \label{matrika}
@@ -143,20 +192,91 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=8 cm]{primer.png}
-    \caption{Primer}
+    \includegraphics[width=7 cm]{primer.png}
+    \caption{Primer grafa}
     \label{primer_2_opt}
   \end{minipage}
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=8 cm]{resitev_primer.png}
-    \caption{Rešitev}
+    \includegraphics[width=7 cm]{resitev_primer.png}
+    \caption{Rešitev primera z 2-opt}
     \label{resitev_2_opt}
   \end{minipage}
     
 \end{figure}
 
+Še en primer:
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primer2.png}
+    \caption{Primer grafa}
+    \label{primer_2_opt_2}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{resitev2.png}
+    \caption{Rešitev primera z 2-opt}
+    \label{resitev_2_opt_2}
+  \end{minipage}
+    
+\end{figure}
+
+
+\newpage
 \subsection[3-opt algoritem]{3-opt algoritem}
+
+\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
+  \node (n0) at (1,8) {0};
+  \node (n1) at (5,10)  {1};
+  \node (n2) at (9,8)  {2};
+  \node (n5) at (1,4) {5};
+  \node (n4) at (5,2)  {4};
+  \node (n3) at (9,4)  {3};
+
+  \foreach \from/\to in {n0/n1,n1/n2,n2/n3,n3/n4,n4/n5,n5/n0}
+    \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
+  \node (n0) at (1,8) {0};
+  \node (n1) at (5,10)  {1};
+  \node (n2) at (9,8)  {2};
+  \node (n5) at (1,4) {5};
+  \node (n4) at (5,2)  {4};
+  \node (n3) at (9,4)  {3};
+
+  \foreach \from/\to in {n5/n2,n1/n2,n4/n3,n3/n0,n4/n1,n5/n0}
+    \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{minipage}
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primer_3_opt.png}
+    \caption{Primer grafa}
+    \label{primer_3_opt}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{resitev_primer_3_opt.png}
+    \caption{Rešitev primera s 3-opt}
+    \label{resitev_3_opt}
+  \end{minipage}
+    
+\end{figure}
+
+
+
+
+
 
 \newpage
 \section[Lin-Kernighanov algoritem]{Lin-Kernighanov algoritem}
