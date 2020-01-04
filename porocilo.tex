@@ -280,6 +280,25 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 
 \newpage
 \section[Lin-Kernighanov algoritem]{Lin-Kernighanov algoritem}
+K-Opt algoritmi so vezani na fiksen k. Lin-Kernighanov algoritem pa na vsakem koraku preveri katero vrednost k se nam splača uporabiti. Začnemo s $k=2$ in naslednja vrednost je za 1 večja. Vrednost k-ja se povečuje doker ne najde zamenjave, ki izboljšata obhod, v tem primeru ponastavi  k na 2. Če take zamenjave ne najdemo potem k povečamo za 1. Če take zamenjave ne najdemo in preizkusimo vse dovoljene zamenjave, potem je dobljena rešitev lokalni ali pa celo globalni minimum.  Običajno Lin-Kernighanov algoritem ne vzame k-ja večjega od 3.\\
+
+Primer grafa z 10 vozlišči in končne rešitve.
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{Primer_z_LK.png}
+    \caption{Primer grafa z 10 vozlišči}
+    \label{primer_LK}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{Resitev_z_LK.png}
+    \caption{Rešitev primera z LK algoritmom}
+    \label{resitev_LK}
+  \end{minipage}
+    
+\end{figure}
 
 \newpage
 \section[Viri]{Viri}

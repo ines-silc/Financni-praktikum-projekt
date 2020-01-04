@@ -71,7 +71,8 @@ def Lin_Kernighan(graf, zacetna_pot):
                 r = 2
     return pot
                 
-                        
+
+
 testna_matrika2 = [[0, 2, 3, 4, 1000],
                  [2, 0, 8, 9, 10],
                  [3, 8, 0, 14, 15],
@@ -79,8 +80,56 @@ testna_matrika2 = [[0, 2, 3, 4, 1000],
                  [1000, 10, 15, 20, 0]]
 
 testna_pot = [0, 2, 1, 3, 4]
-       
+
+
+
                 
+g = nx.MultiGraph()
+sez = [1, 2, 3, 4, 5, 6, 7, 8]
+g.add_nodes_from(sez)
+
+a = 0
+for i in sez:
+    a += 1
+    for j in sez:
+        a += 1
+        if i == j:
+            pass
+        else:        
+            g.add_weighted_edges_from([(i, j, a)])
+        
+h = nx.complete_graph(8)
+
+def pretvori_graf_v_matriko(graf):
+    m = nx.attr_matrix(graf, edge_attr = 'weight')[0]
+    gm = []
+    for i in range(len(m[0])-1):
+        for j in range(len(m)-1):
+            gm[i][j]= m[i, j]
+    return gm
+
+def pretvori_matriko_v_graf(matrika):
+    g = nx.MultiGraph()
+    for i in range(len(matrika[0])):
+        for j in range(len(matrika)):
+            if i == j:
+                g.add_edge(i, j)
+            else:
+                if matrika[i][j] == 0:
+                    pass
+                else:
+                    g.add_weighted_edges_from([(i, j, matrika[i][j])])
+    return g
+
+def pretvori_resitev_v_matriko(najboljsa_pot, graf):
+    matrika = [[0 for col in range(len(graf))] for row in range(len(graf))]
+    for i in range(len(najboljsa_pot)-1):
+        print('Na mesto', najboljsa_pot[i], najboljsa_pot[i+1], 'dodajam element', graf[najboljsa_pot[i]][najboljsa_pot[i+1]])
+        matrika[najboljsa_pot[i]][najboljsa_pot[i+1]] = graf[najboljsa_pot[i]][najboljsa_pot[i+1]]
+    print('Matrika rešitve je', matrika)
+    return matrika
+
+          
 resitev = Lin_Kernighan(testna_matrika2, testna_pot)
 print('Rešitev je', resitev)
 cikel = resitev
@@ -94,11 +143,34 @@ def cena_poti(graf, pot):
 
 print('Cikel je', cikel, ', in njegova cena je', cena_poti(testna_matrika2, cikel))
 
+
+n = 10
+matrika1 = [[0 for col in range(n)] for row in range(n)]
+random.seed(525600)
+for i in range(n):
+    for j in range(i+1, n):
+        a = random.randint(1, 1000)
+        matrika1[i][j] = a
+        matrika1[j][i] = a
+
+prvotna_pot = list(range(10))
+resitev1 = Lin_Kernighan(matrika1, prvotna_pot)
+print('Resitev večje matrike je', resitev1)
+cikel1 = resitev1
+cikel1.append(cikel1[0])
+print('Cikel je', cikel1, ', in njegova cena je', cena_poti(matrika1, cikel1))
+
             
-                
+tg2 = pretvori_matriko_v_graf(matrika1)
+nx.draw(tg2, pos = nx.circular_layout(tg2), with_labels = True)
+nx.draw_networkx_edge_labels(tg2, pos = nx.circular_layout(tg2), labels = nx.get_edge_attributes(tg2, 'weight').values())
+mpl.show()        
                     
                 
-                
+rtg3 = pretvori_matriko_v_graf(pretvori_resitev_v_matriko(cikel1, matrika1))
+nx.draw(rtg3, pos = nx.circular_layout(rtg3), with_labels = True)
+nx.draw_networkx_edge_labels(rtg3, pos = nx.circular_layout(rtg3), labels = nx.get_edge_attributes(rtg3, 'weight'))
+mpl.show()          
                 
             
 
