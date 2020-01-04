@@ -83,39 +83,25 @@ Za preverjanje veljavnosti poti v grafu za problem potujočega trgovca, morava v
 
 \begin{itemize}
 
-\item Vsaka pot trgovca bo morala imeti vsa vozlišča zato vedno preverimo:
-\begin{center}
-\texttt{pot.order() == originalen\_graf.order()}
-\end{center}
-\item Vsaka pot trgovca bo morala imeti točno toliko povezav kot vozlišč:
-\begin{center}
-\texttt{pot.size(weight = None) == pot.order()} 
-\end{center}
-\item Dolžina poti: \texttt{pot.size()}
+\item Vsaka pot trgovca bo morala imeti vsa vozlišča primarnega grafa
+\item Vsaka pot trgovca bo morala imeti točno toliko povezav kot vozlišč
+\item Dolžina poti bo morala biti enaka številu vozlišč -1
 
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
 
 \newpage
 \section[k-optimalni algoritmi]{k-optimalni algoritmi}
 
 K-optimalni algoritem, je lokalni algoritem, kjer iščemo rešitev Problema trgovskega potnika in sorodnih problemov. Algoritem deluje tako, da zmanjša dolžino trenutnega potovanja, dokler ne dosežemo poti, katere dolžine ne moremo izboljšati.\\
 
-Poznamo dve glavni različici k-opt algoritma, to sta 2-Opt in 3-Opt algoritem. 2-Opt algoritem deluje tako, da odstrani dve vozlišči grafa (dve mesti), tako razdeli pot na dva dela, poišče najboljšo rešitev podproblema, in nato poveže nazaj mesti na najboljši možen način. 3-Opt algoritem odstrani tri povezave ali vozlišča, tako dobimo 3 podomrežja mest. V naslednjem koraku analiziramo najboljšo pot med temi tremi podomrežji. To ponavljamo za druge tri povezave, dokler nismo poskusili vseh možnih poti v danem omrežju.
+Poznamo več različic k-opt algoritma. V tej projektni nalogi se bova osredotočila na dve glavni različici k-opt algoritma, to sta 2-Opt in 3-Opt algoritem. 2-Opt algoritem deluje tako, da odstrani dve vozlišči grafa (dve mesti), tako razdeli pot na dva dela, poišče najboljšo rešitev podproblema, in nato poveže nazaj mesti na najboljši možen način. 3-Opt algoritem odstrani tri povezave ali vozlišča, tako dobimo 3 podomrežja mest. V naslednjem koraku analiziramo najboljšo pot med temi tremi podomrežji. To ponavljamo za druge tri povezave, dokler nismo poskusili vseh možnih poti v danem omrežju.
 
 \subsection[2-opt algoritem]{2-opt algoritem}
 
-\begin{verbatim}
+Za začetek 2-opt postopka potrebujemo poln graf z utežmi na vsaki povezavi in danim začetnim ciklom po tem grafu. Postopoma odstranjujemo po dve vozlišči in ju povežemo drugače, nato preverimo, ali je novonastali cikel cenejši. Če je novi cikel cenejši, potem ga vzamemo za boljšo rešitev. Ta postopek nadaljujemo, dokler ne pridemo do konca poti in se moramo vrniti na začetek. \\
 
+Za algoritem potrebujemo še dodatno funkcijo, ki nam izračuna ceno poti, ta prejme vhodne podatke graf in pot in sešteje uteži poti v grafu. Dejanski postopek 2-opt algoritma izgleda takole:
+\begin{verbatim}
 def dva_opt(graf, pot):
 
     najboljsa_pot = pot
@@ -139,6 +125,20 @@ def dva_opt(graf, pot):
     return (pot, cena_poti(graf, pot))
 
 \end{verbatim}
+
+Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j)$-tem mestu matrike je cena med mestoma $i$ in $j$. Dana je matrika (\ref{matrika}) in njen graf je narisan na sliki \ref{primer_2_opt}
+\begin{equation}
+\label{matrika}
+\begin{bmatrix} 
+0&2&3&4&1000\\
+2&0&8&9&10\\
+3&8&0&14&15\\
+4&9&14&0&20\\
+1000&10&15&20&0\\
+\end{bmatrix}
+\end{equation}
+
+Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 
 \begin{figure}[!h]
     
