@@ -3,6 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as mpl 
 import random
 import itertools
+import timeit
 
 def vse_kombinacije_3(n):
     return ((i, j, k)
@@ -173,14 +174,26 @@ def cena_poti(graf, pot):
 ##mpl.show()          
                 
             
+n = 100
+prvotna_pot = list(range(n))
 
+matrika1 = [[0 for col in range(n)] for row in range(n)]
+random.seed(525600)
+for i in range(n):
+    for j in range(i+1, n):
+        a = random.randint(1, 1000)
+        matrika1[i][j] = a
+        matrika1[j][i] = a
+zacetni_cas = time.clock()
 
+resitev1 = Lin_Kernighan(matrika1, prvotna_pot)
+cikel = resitev1
+cikel.append(cikel[0])
+cena = cena_poti(matrika1, cikel)
 
-
-
-
-
-
+koncni_cas = time.clock()
+cas = koncni_cas - zacetni_cas
+print('Čas delovanja:', cas, '  pot:', cikel, '  dolzina poti:', cena)
 
 
 
