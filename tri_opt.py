@@ -44,10 +44,10 @@ testna_matrika2 = [[0, 2, 3, 4, 1000],
 
 testna_pot = [0, 2, 1, 3, 4]
 
-resitev = tri_opt(testna_matrika2, testna_pot)
-print('Rešitev je', resitev)
-cikel = resitev
-cikel.append(resitev[0])
+##resitev = tri_opt(testna_matrika2, testna_pot)
+##print('Rešitev je', resitev)
+##cikel = resitev
+##cikel.append(resitev[0])
 
 def cena_poti(graf, pot):
     cena = 0
@@ -55,4 +55,4 @@ def cena_poti(graf, pot):
         cena = cena + graf[pot[i]][pot[i+1]]
     return cena
 
-print('Cikel je', cikel, ', in njegova cena je', cena_poti(testna_matrika2, cikel))
+##print('Cikel je', cikel, ', in njegova cena je', cena_poti(testna_matrika2, cikel))

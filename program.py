@@ -94,30 +94,30 @@ def dva_opt(graf, pot):
         print('Najboljša pot je', pot, 'in njena dolžina je', cena_poti(graf, pot))
     return (pot, cena_poti(graf, pot))
 
-testna_matrika2 = [[0, 2, 3, 4, 1000],
-                 [2, 0, 8, 9, 10],
-                 [3, 8, 0, 14, 15],
-                 [4, 9, 14, 0, 20],
-                 [1000, 10, 15, 20, 0]]
-
-poti_in_cene = []
-for i in range(0, len(list(itertools.permutations(range(5)))), 30):
-    prvotna_pot = list(list(itertools.permutations(range(5)))[i])
-    izhodisce = prvotna_pot[0]
-    prvotna_pot.append(izhodisce)   
-    (a, b) = dva_opt(testna_matrika2, prvotna_pot)
-    poti_in_cene.append((a, b))
-
-poti_in_cene.sort(key=lambda elem: elem[1])
-print('Vse poti so', poti_in_cene)
-print('Najboljša rešitev je', poti_in_cene[0])
-
-tg2 = pretvori_matriko_v_graf(testna_matrika2)
-nx.draw(tg2, pos = nx.circular_layout(tg2), with_labels = True)
-nx.draw_networkx_edge_labels(tg2, pos = nx.circular_layout(tg2), labels = nx.get_edge_attributes(tg2, 'weight').values())
-mpl.show()
-
-najboljsa_pot = poti_in_cene[0][0]
+##testna_matrika2 = [[0, 2, 3, 4, 1000],
+##                 [2, 0, 8, 9, 10],
+##                 [3, 8, 0, 14, 15],
+##                 [4, 9, 14, 0, 20],
+##                 [1000, 10, 15, 20, 0]]
+##
+##poti_in_cene = []
+##for i in range(0, len(list(itertools.permutations(range(5)))), 30):
+##    prvotna_pot = list(list(itertools.permutations(range(5)))[i])
+##    izhodisce = prvotna_pot[0]
+##    prvotna_pot.append(izhodisce)   
+##    (a, b) = dva_opt(testna_matrika2, prvotna_pot)
+##    poti_in_cene.append((a, b))
+##
+##poti_in_cene.sort(key=lambda elem: elem[1])
+##print('Vse poti so', poti_in_cene)
+##print('Najboljša rešitev je', poti_in_cene[0])
+##
+##tg2 = pretvori_matriko_v_graf(testna_matrika2)
+##nx.draw(tg2, pos = nx.circular_layout(tg2), with_labels = True)
+##nx.draw_networkx_edge_labels(tg2, pos = nx.circular_layout(tg2), labels = nx.get_edge_attributes(tg2, 'weight').values())
+##mpl.show()
+##
+##najboljsa_pot = poti_in_cene[0][0]
 
 def pretvori_resitev_v_matriko(najboljsa_pot, graf):
     matrika = [[0 for col in range(len(graf))] for row in range(len(graf))]
@@ -126,11 +126,6 @@ def pretvori_resitev_v_matriko(najboljsa_pot, graf):
         matrika[najboljsa_pot[i]][najboljsa_pot[i+1]] = graf[najboljsa_pot[i]][najboljsa_pot[i+1]]
     print('Matrika rešitve je', matrika)
     return matrika
-
-rtg3 = pretvori_matriko_v_graf(pretvori_resitev_v_matriko(najboljsa_pot, testna_matrika2))
-nx.draw(rtg3, pos = nx.circular_layout(rtg3), with_labels = True)
-nx.draw_networkx_edge_labels(rtg3, pos = nx.circular_layout(rtg3), labels = nx.get_edge_attributes(rtg3, 'weight'))
-mpl.show()
 
 
 
