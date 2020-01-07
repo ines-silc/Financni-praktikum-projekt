@@ -62,19 +62,11 @@ Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva nasle
 
 \item \texttt{networkx}: za definiranje in generiranje grafov
 
-\item \texttt{}
-
-\item \texttt{}
-
-\item \texttt{}
-
-\item \texttt{}
-
 \item \texttt{random}: za generiranje naključnih števil in seznamov
 
 \item \texttt{matplotlib}: za izrisovanje grafov
 
-\item \texttt{time}: za mertive časovne zahtevnosti
+\item \texttt{timeit}: za mertive časovne zahtevnosti
 
 \item \texttt{itertools}: za generiranje prvotne permutacije
 
@@ -192,13 +184,13 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{primer.png}
+    \includegraphics[width=7 cm]{primeri/primer1.png}
     \caption{Primer grafa}
-    \label{primer_2_opt}
+    \label{primeri/primer1.png}
   \end{minipage}
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{resitev_primer.png}
+    \includegraphics[width=7 cm]{primeri/primer1_2opt.png}
     \caption{Rešitev primera z 2-opt}
     \label{resitev_2_opt}
   \end{minipage}
@@ -210,13 +202,13 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{primer2.png}
+    \includegraphics[width=7 cm]{primeri/primer2.png}
     \caption{Primer grafa}
     \label{primer_2_opt_2}
   \end{minipage}
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{resitev2.png}
+    \includegraphics[width=7 cm]{primeri/primer2_2opt.png}
     \caption{Rešitev primera z 2-opt}
     \label{resitev_2_opt_2}
   \end{minipage}
@@ -260,13 +252,29 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=8 cm]{primer_3_opt.png}
+    \includegraphics[width=8 cm]{primeri/primer1.png}
     \caption{Primer grafa}
     \label{primer_3_opt}
   \end{minipage}
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=8 cm]{resitev_primer_3_opt.png}
+    \includegraphics[width=8 cm]{primeri/primer1_3opt.png}
+    \caption{Rešitev primera s 3-opt}
+    \label{resitev_3_opt}
+  \end{minipage}
+    
+\end{figure}
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primeri/primer2.png}
+    \caption{Primer grafa}
+    \label{primer_3_opt}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primeri/primer2_3opt.png}
     \caption{Rešitev primera s 3-opt}
     \label{resitev_3_opt}
   \end{minipage}
@@ -276,24 +284,39 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 
 
 
-
-
 \newpage
 \section[Lin-Kernighanov algoritem]{Lin-Kernighanov algoritem}
 K-Opt algoritmi so vezani na fiksen k. Lin-Kernighanov algoritem pa na vsakem koraku preveri katero vrednost k se nam splača uporabiti. Začnemo s $k=2$ in naslednja vrednost je za 1 večja. Vrednost k-ja se povečuje doker ne najde zamenjave, ki izboljšata obhod, v tem primeru ponastavi  k na 2. Če take zamenjave ne najdemo potem k povečamo za 1. Če take zamenjave ne najdemo in preizkusimo vse dovoljene zamenjave, potem je dobljena rešitev lokalni ali pa celo globalni minimum.  Običajno Lin-Kernighanov algoritem ne vzame k-ja večjega od 3.\\
 
-Primer grafa z 10 vozlišči in končne rešitve.
+Primer grafa s5 in 10 vozlišči in končne rešitve.
 
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{Primer_z_LK.png}
+    \includegraphics[width=7 cm]{primeri/primer1.png}
+    \caption{Primer grafa s 5 vozlišči}
+    \label{primer_LK}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer1_lk.png}
+    \caption{Rešitev primera z LK algoritmom}
+    \label{resitev_LK}
+  \end{minipage}
+    
+\end{figure}
+
+
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer2.png}
     \caption{Primer grafa z 10 vozlišči}
     \label{primer_LK}
   \end{minipage}
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=7 cm]{Resitev_z_LK.png}
+    \includegraphics[width=7 cm]{primeri/primer2_lk.png}
     \caption{Rešitev primera z LK algoritmom}
     \label{resitev_LK}
   \end{minipage}
