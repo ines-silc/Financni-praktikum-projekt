@@ -324,6 +324,51 @@ Primer grafa s5 in 10 vozlišči in končne rešitve.
 \end{figure}
 
 \newpage
+
+\section[Časovna zahtevnost]{Časovna zahtevnost}
+V projektni nalogi sva še praktično analizirala časovno zahtevnost vsakega od treh algoritmov. To sva naredila tako, da sva merila, koliko časa vsak algoritem porabi za poln graf v odvisnosti od n. Izračunala sva čase za n = 5, 10, 100... in dobila naslednje rezultate\footnote{Pri merjenju časovne zahtevnosti je pomembno, meriva samo časovno zahtevnost algoritma in ne ostalih stvari, kot so preurejanje in izrisovanje grafa.}:
+
+\begin{enumerate}
+
+\item n = 5:
+Cena začetne poti: 49
+\begin{itemize}
+
+\item 2 opt: 0.0007491000000072745 sekunde, cena poti: 41
+\item 3 opt: 0.00027590000001964654 sekunde, cena poti: 41
+\item LK: 0.00015439999998534404 sekunde, cena poti: 41
+\end{itemize}
+
+\item n = 10:
+Cena začetne poti: 4903
+\begin{itemize} 
+
+\item 2 opt: 0.0016875000000027285 sekunde, cena poti: 3863
+\item 3 opt: 0.0005999999999630745 sekunde, cena poti: 1484
+\item LK: 0.0005700000000388172 sekunde, cena poti: 1484
+\end{itemize}
+
+\item n = 100:
+Cena začetne poti: 46984
+\begin{itemize}
+
+\item 2 opt: 0.2495525000000498 sekunde, cena poti: 51366
+\item 3 opt:  2.2223871999999574 sekunde, cena poti: 2446
+\item LK: 3.5075004999998782 sekunde, cena poti: 2235
+\end{itemize}
+
+\item n = 1000:
+Cena začetne poti: 483979
+\begin{itemize}
+
+\item 2 opt:  sekunde, cena poti: 
+\item 3 opt:   sekunde, cena poti: 
+\item LK:  sekunde, cena poti: 
+\end{itemize}
+
+\end{enumerate}
+
+\newpage
 \section[Viri]{Viri}
 
 \begin{enumerate}
