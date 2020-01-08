@@ -71,8 +71,9 @@ def cena_poti(graf, pot):
 
 def dva_opt(graf, pot):
     najboljsa_pot = pot
+    cena = cena_poti(graf, pot)
     print('Prvotna pot je', pot)
-    print('Cena prvotne poti je', cena_poti(graf, pot))
+    print('Cena prvotne poti je', cena)
     izboljsanje = True
     while izboljsanje:
         izboljsanje = False
@@ -81,18 +82,20 @@ def dva_opt(graf, pot):
             for j in range(i + 1, len(pot)):
                 #print('delam drugo')
                 if j - i == 1: continue
-                nova_pot = pot
+                nova_pot = pot[:]
                 nova_pot[i:j] = pot[j - 1:i - 1:-1]
+                nova_cena = cena_poti(graf, nova_pot) # popravi samo glede na spremenjene povezave
                 #print('cena nove poti je', cena_poti(graf, nova_pot))
-                if cena_poti(graf, nova_pot) < cena_poti(graf, najboljsa_pot):
-                    najboljsa_pot = nova_pot
+                if nova_cena < cena:
+                    najboljsa_pot = nova_pot[:]
+                    cena = nova_cena
                     #print(najboljsa_pot)
                     #print('cena najboljše poti je', cena_poti(graf, najboljsa_pot))
                     #print(izboljsanje)
                     izboljsanje = True
         pot = najboljsa_pot
         print('Najboljša pot je', pot, 'in njena dolžina je', cena_poti(graf, pot))
-    return (pot, cena_poti(graf, pot))
+    return (pot, cena)
 
 ##testna_matrika2 = [[0, 2, 3, 4, 1000],
 ##                 [2, 0, 8, 9, 10],
