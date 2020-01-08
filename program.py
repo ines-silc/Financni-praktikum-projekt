@@ -94,7 +94,7 @@ def dva_opt(graf, pot):
                     #print(izboljsanje)
                     izboljsanje = True
         pot = najboljsa_pot
-        print('Najboljša pot je', pot, 'in njena dolžina je', cena_poti(graf, pot))
+        #print('Najboljša pot je', pot, 'in njena dolžina je', cena_poti(graf, pot))
     return (pot, cena)
 
 ##testna_matrika2 = [[0, 2, 3, 4, 1000],

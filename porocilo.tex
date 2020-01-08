@@ -98,24 +98,28 @@ Za algoritem potrebujemo še dodatno funkcijo, ki nam izračuna ceno poti, ta pr
 def dva_opt(graf, pot):
 
     najboljsa_pot = pot
+    
+    cena = cena_poti(graf, pot)
 
     izboljsanje = True
     while izboljsanje:
         izboljsanje = False
-        for i in range(1, len(pot) - 2):
+        for i in range(1,len(pot) - 2):
 
             for j in range(i + 1, len(pot)):
-
+ 
                 if j - i == 1: continue
-                nova_pot = pot
+                nova_pot = pot[:]
                 nova_pot[i:j] = pot[j - 1:i - 1:-1]
+                nova_cena = cena_poti(graf, nova_pot)
 
-                if cena_poti(graf, nova_pot) < cena_poti(graf, najboljsa_pot):
-                    najboljsa_pot = nova_pot
+                if nova_cena < cena:
+                    najboljsa_pot = nova_pot[:]
+                    cena = nova_cena
                     izboljsanje = True
         pot = najboljsa_pot
 
-    return (pot, cena_poti(graf, pot))
+    return (pot, cena)
 
 \end{verbatim}
 
@@ -167,7 +171,7 @@ Algoritem gre postopoma po poti in zamenja zaporedje vozlišč, če je le tako b
 \end{tikzpicture}
 \end{minipage}\\\vspace{0.5cm}
 
-Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j)$-tem mestu matrike je cena med mestoma $i$ in $j$. Dana je matrika (\ref{matrika}) in njen graf je narisan na sliki \ref{primer_2_opt}
+Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j)$-tem mestu matrike je cena med mestoma $i$ in $j$. Dana je matrika (\ref{matrika}) in njen graf je narisan na sliki \ref{primeri/primer1.png}
 \begin{equation}
 \label{matrika}
 \begin{bmatrix} 
@@ -199,21 +203,21 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 
 Še en primer:
 
-%\begin{figure}[!h]
-%    
-%    \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=7 cm]{primeri/primer2.png}
-%    \caption{Primer grafa}
-%    \label{primer_2_opt_2}
-%  \end{minipage}
-% \hspace{1cm}
-%  \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=7 cm]{primeri/primer2_2opt.png}
-%    \caption{Rešitev primera z 2-opt}
-%    \label{resitev_2_opt_2}
-%  \end{minipage}
-%    
-%\end{figure}
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer2.png}
+    \caption{Primer grafa}
+    \label{primer_2_opt_2}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer2_2opt.png}
+    \caption{Rešitev primera z 2-opt}
+    \label{resitev_2_opt_2}
+  \end{minipage}
+    
+\end{figure}
 
 
 \newpage
@@ -265,21 +269,21 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
     
 \end{figure}
 
-%\begin{figure}[!h]
-%    
-%    \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=8 cm]{primeri/primer2.png}
-%    \caption{Primer grafa}
-%    \label{primer_3_opt}
-%  \end{minipage}
-% \hspace{1cm}
-%  \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=8 cm]{primeri/primer2_3opt.png}
-%    \caption{Rešitev primera s 3-opt}
-%    \label{resitev_3_opt}
-%  \end{minipage}
-%    
-%\end{figure}
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primeri/primer2.png}
+    \caption{Primer grafa}
+    \label{primer_3_opt}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=8 cm]{primeri/primer2_3opt.png}
+    \caption{Rešitev primera s 3-opt}
+    \label{resitev_3_opt}
+  \end{minipage}
+    
+\end{figure}
 
 
 
@@ -288,7 +292,7 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \section[Lin-Kernighanov algoritem]{Lin-Kernighanov algoritem}
 K-Opt algoritmi so vezani na fiksen k. Lin-Kernighanov algoritem pa na vsakem koraku preveri katero vrednost k se nam splača uporabiti. Začnemo s $k=2$ in naslednja vrednost je za 1 večja. Vrednost k-ja se povečuje doker ne najde zamenjave, ki izboljšata obhod, v tem primeru ponastavi  k na 2. Če take zamenjave ne najdemo potem k povečamo za 1. Če take zamenjave ne najdemo in preizkusimo vse dovoljene zamenjave, potem je dobljena rešitev lokalni ali pa celo globalni minimum.  Običajno Lin-Kernighanov algoritem ne vzame k-ja večjega od 3.\\
 
-Primer grafa s5 in 10 vozlišči in končne rešitve.
+Primer grafa s 5 in 10 vozlišči in končne rešitve.
 
 \begin{figure}[!h]
     
@@ -307,96 +311,41 @@ Primer grafa s5 in 10 vozlišči in končne rešitve.
 \end{figure}
 
 
-%\begin{figure}[!h]
-%    
-%    \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=7 cm]{primeri/primer2.png}
-%    \caption{Primer grafa z 10 vozlišči}
-%    \label{primer_LK}
-%  \end{minipage}
-% \hspace{1cm}
-%  \begin{minipage}{0.5\textwidth}
-%    \includegraphics[width=7 cm]{primeri/primer2_lk.png}
-%    \caption{Rešitev primera z LK algoritmom}
-%    \label{resitev_LK}
-%  \end{minipage}
-%    
-%\end{figure}
+\begin{figure}[!h]
+    
+    \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer2.png}
+    \caption{Primer grafa z 10 vozlišči}
+    \label{primer_LK}
+  \end{minipage}
+ \hspace{1cm}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=7 cm]{primeri/primer2_lk.png}
+    \caption{Rešitev primera z LK algoritmom}
+    \label{resitev_LK}
+  \end{minipage}
+    
+\end{figure}
 
 \newpage
 
 \section[Časovna zahtevnost]{Časovna zahtevnost}
 V projektni nalogi sva še praktično analizirala časovno zahtevnost vsakega od treh algoritmov. To sva naredila tako, da sva merila, koliko časa vsak algoritem porabi za poln graf v odvisnosti od n. Izračunala sva čase za n = 5, 10, 100... in dobila naslednje rezultate\footnote{Pri merjenju časovne zahtevnosti je pomembno, meriva samo časovno zahtevnost algoritma in ne ostalih stvari, kot so preurejanje in izrisovanje grafa.}:
 
-\begin{enumerate}
-
-\item n = 5:
-Cena začetne poti: 49
-\begin{itemize}
-
-\item 2 opt: 0,0007491000000072745 sekunde, cena poti: 41
-\item 3 opt: 0,00027590000001964654 sekunde, cena poti: 41
-\item LK: 0,00015439999998534404 sekunde, cena poti: 41
-\end{itemize}
-
-\item n = 10:
-Cena začetne poti: 4903
-\begin{itemize} 
-
-\item 2 opt: 0,0016875000000027285 sekunde, cena poti: 3863
-\item 3 opt: 0,0005999999999630745 sekunde, cena poti: 1484
-\item LK: 0,0005700000000388172 sekunde, cena poti: 1484
-\end{itemize}
-
-\item n = 20:
-Cena začetne poti: 9047
-\begin{itemize} 
-
-\item 2 opt: 0.004272000000128173 sekunde, cena poti: 9650
-\item 3 opt: 0.009910499999932654 sekunde, cena poti: 1555
-\item LK: 0.019950500000049942 sekunde, cena poti: 1517
-\end{itemize}
-
-\item n = 100:
-Cena začetne poti: 46984
-\begin{itemize}
-
-\item 2 opt: 0,2495525000000498 sekunde, cena poti: 51366
-\item 3 opt:  2,2223871999999574 sekunde, cena poti: 2446
-\item LK: 3,5075004999998782 sekunde, cena poti: 2235
-\end{itemize}
-
-\item n = 1000:
-Cena začetne poti: 483979
-\begin{itemize}
-
-\item 2 opt: 278,793 sekund, cena poti: 504514
-\item 3 opt:   sekunde, cena poti: 
-\item LK:  sekunde, cena poti: 
-\end{itemize}
-
-\end{enumerate}
-
-\begin{table}[]
+\begin{table}[!h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 n&cena začetne&2-opt&cena 2-opt&3-opt&cena 3-opt&LK&cena LK\\\hline
-5&49&0,000749&41&0,000276&41&0,000154&41\\\hline
-10&4903&0,001687&3863&0,000600&1484&0,000570&1484\\\hline
-20&9047&0,004272&9650&0,009911&1555&0,0199505&1517\\\hline
-30&13715&0,012635&13715&0,022197&1907&0,052624&1729\\\hline
-50&23556&0.055628&30135&0.186868&2496&0,191449&2319\\\hline
-100&46984&0,249553&51366&2,222387&2446&3,507500&2235\\\hline
-200&98344&2,48095&94915&31,0363&3007&18.4228&2832\\\hline
-300&156543&9,17178&149098&172,005&2986&114,826&2630\\\hline
-500&244733&44,0965&252385&622,974&3328&748,263&2900\\\hline
-1000&483979&278,793&504514&8915,71&4249&7167,39&3755\\\hline
-2000&997884&3321,24&1008459&&&&\\\hline
-3000&1464708&12130,2&1522475&&&&\\\hline
-5000&&&&&&&\\\hline
-10000&&&&&&&\\\hline
-20000&&&&&&&\\\hline
-30000&&&&&&&\\\hline
+5&49&0,000675&41&0,000276&41&0,000154&41\\\hline
+10&4903&0.004748&1595&0,000600&1484&0,000611&1484\\\hline
+20&9047&0,03257&1388&0,00801&1555&0,01151&1517\\\hline
+30&11825&0,10143&2255&0,01806&1907&0,04639&1729\\\hline
+50&23556&0,69378&2833&0,18529&2496&0,30218&2319\\\hline
+100&46984&11,3602&46984&1,97813&2446&2,31723&2235\\\hline
+200&98344&194,093&4673&22,9016&3007&13,7700&2832\\\hline
+300&156543&1127,92&5365&162,040&2986&94,0348&2630\\\hline
+500&244733&&&&&&\\\hline
+1000&483979&&&&&&\\\hline
 \end{tabular}
 \end{table}
 
