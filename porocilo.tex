@@ -329,8 +329,12 @@ Primer grafa s 5 in 10 vozlišči in končne rešitve.
 
 \newpage
 
-\section[Časovna zahtevnost]{Časovna zahtevnost}
+\section[Časovna zahtevnost in red napake]{Časovna zahtevnost in red napake}
+Pri 2-Opt algoritmu se red napake giblje med $O(\frac{\log n}{\log (\log n)} )$ in $O(\log n)$, pri 3-Opt algoritmu in Lin-Kernighanovemu algoritmu pa je enak $O(\sqrt[3]{n})$. 
+\\
+V teoriji je časovna zahtevnost za k-Opt algoritem enaka $O(n^{k})$, kjer je n število vozlišč v grafu. Časovna zahtevnost za Lin-Kernighanov algoritem pa je nekoliko manj kot $O(n^{3})$
 V projektni nalogi sva še praktično analizirala časovno zahtevnost vsakega od treh algoritmov. To sva naredila tako, da sva merila, koliko časa vsak algoritem porabi za poln graf v odvisnosti od n. Izračunala sva čase za n = 5, 10, 100... in dobila naslednje rezultate\footnote{Pri merjenju časovne zahtevnosti je pomembno, meriva samo časovno zahtevnost algoritma in ne ostalih stvari, kot so preurejanje in izrisovanje grafa.}:
+
 
 \begin{table}[!h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
@@ -344,7 +348,7 @@ n&cena začetne&2-opt&cena 2-opt&3-opt&cena 3-opt&LK&cena LK\\\hline
 100&46984&11,3602&46984&1,97813&2446&2,31723&2235\\\hline
 200&98344&194,093&4673&22,9016&3007&13,7700&2832\\\hline
 300&156543&1127,92&5365&162,040&2986&94,0348&2630\\\hline
-500&244733&&&&&&\\\hline
+500&244733&7912.40&6689&402.52&3328&496.36&2900\\\hline
 1000&483979&&&&&&\\\hline
 \end{tabular}
 \end{table}
