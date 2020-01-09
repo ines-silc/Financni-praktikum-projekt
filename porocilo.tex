@@ -54,7 +54,7 @@ $$
  
 Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mesta v vsako drugo mesto, si zapišemo vse kombinacije in kakšno razdaljo smo prepotovali, ter izberemo tisto možnost, kjer je bila razdalja najkrajša.\\ 
 
-Pred začetkom se lahko vprašamo kakšen mora biti graf, da lahko na njem izvajamo sledeča algoritma. Graf \textbf{ne sme} imeti \textbf{negativnih ciklov}, saj je najcenejši cikel potem očiten, in ustvarimo neskončno zanko, saj bo imela najboljša rešitev ceno -$\infty$. Ker imamo opravka s cikli, lahko cikel začnemo v kateremkoli vozlišču, zato lahko vedno gledamo možne poti od začetka.\\
+Pred začetkom se lahko vprašamo kakšen mora biti graf, da lahko na njem izvajamo sledeča algoritma. Ker imamo opravka s cikli, lahko cikel začnemo v kateremkoli vozlišču, zato lahko vedno gledamo možne poti od začetka.\\
 
 Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva naslednje pakete:
 
@@ -66,7 +66,7 @@ Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva nasle
 
 \item \texttt{matplotlib}: za izrisovanje grafov
 
-\item \texttt{timeit}: za mertive časovne zahtevnosti
+\item \texttt{time}: za mertive časovne zahtevnosti
 
 \item \texttt{itertools}: za generiranje prvotne permutacije
 
@@ -91,39 +91,38 @@ Poznamo več različic k-opt algoritma. V tej projektni nalogi se bova osredoto�
 
 \subsection[2-opt algoritem]{2-opt algoritem}
 
-Za začetek 2-opt postopka potrebujemo poln graf z utežmi na vsaki povezavi in danim začetnim ciklom po tem grafu. Postopoma odstranjujemo po dve vozlišči in ju povežemo drugače, nato preverimo, ali je novonastali cikel cenejši. Če je novi cikel cenejši, potem ga vzamemo za boljšo rešitev. Ta postopek nadaljujemo, dokler ne pridemo do konca poti in se moramo vrniti na začetek. \\
+Za začetek 2-Opt postopka potrebujemo poln graf z utežmi na vsaki povezavi in danim začetnim ciklom po tem grafu. Postopoma odstranjujemo po dve vozlišči in ju povežemo drugače, nato preverimo, ali je novonastali cikel cenejši. Če je novi cikel cenejši, potem ga vzamemo za boljšo rešitev. Ta postopek nadaljujemo, dokler ne pridemo do konca poti in se moramo vrniti na začetek. \\
 
-Za algoritem potrebujemo še dodatno funkcijo, ki nam izračuna ceno poti, ta prejme vhodne podatke graf in pot in sešteje uteži poti v grafu. Dejanski postopek 2-opt algoritma izgleda takole:
+Za algoritem potrebujemo še dodatno funkcijo, ki nam izračuna ceno poti, ta prejme vhodne podatke graf in pot in sešteje uteži poti v grafu. Dejanski postopek 2-Opt algoritma izgleda takole:
 \begin{verbatim}
 def dva_opt(graf, pot):
-
     najboljsa_pot = pot
-    
     cena = cena_poti(graf, pot)
-
+    
     izboljsanje = True
     while izboljsanje:
         izboljsanje = False
         for i in range(1,len(pot) - 2):
-
             for j in range(i + 1, len(pot)):
- 
                 if j - i == 1: continue
                 nova_pot = pot[:]
                 nova_pot[i:j] = pot[j - 1:i - 1:-1]
                 nova_cena = cena_poti(graf, nova_pot)
-
                 if nova_cena < cena:
                     najboljsa_pot = nova_pot[:]
                     cena = nova_cena
                     izboljsanje = True
+                    
         pot = najboljsa_pot
-
-    return (pot, cena)
+    return (pot)
 
 \end{verbatim}
 
-Algoritem gre postopoma po poti in zamenja zaporedje vozlišč, če je le tako bolj optimalno. Dva koraka 2-opt algoritma bi izgledala takole:\\
+Na začetku so izberemo začetno pot. V splošnem ni pomembno kakšno pot si vzamemo, le da gremo natanko enkrat čez vsa vozlišča in se vrnemo na začetek. Algoritem je \textbf{lokalno optimalen}, torej lahko obstaja cenejša pot, ki je naš algoritem ne bo našel. To je odvisno od začetne poti, zato lahko dobimo različne, slabše ali boljše, rešitve, če spreminjamo začetno pot.\\
+
+Ko si izberemo začetno pot, izračunamo njeno ceno in si jo zapomnimo. Začnemo jemati po dve vozlišči in ju povežemo na nov način. Sproti beležimo, če je prišlo do izboljšanja. Če je do izboljšanja prišlo, je naša lokalno najboljša pot spremenjena, in izvajamo algoritem na njej. Tako nadaljujemo postopek, dokler ne pridemo na začetek cikla.\\
+
+Algoritem gre torej postopoma po poti in zamenja zaporedje vozlišč, če je le tako bolj optimalno. Dva koraka 2-Opt algoritma bi izgledala takole:\\
 
 \begin{minipage}{0.3\textwidth}
 \begin{tikzpicture}
@@ -172,6 +171,7 @@ Algoritem gre postopoma po poti in zamenja zaporedje vozlišč, če je le tako b
 \end{minipage}\\\vspace{0.5cm}
 
 Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j)$-tem mestu matrike je cena med mestoma $i$ in $j$. Dana je matrika (\ref{matrika}) in njen graf je narisan na sliki \ref{primeri/primer1.png}
+
 \begin{equation}
 \label{matrika}
 \begin{bmatrix} 
@@ -182,8 +182,8 @@ Za primer delovanja si oglejmo preprosto matriko, ki predstavlja graf. Na $(i, j
 1000&10&15&20&0\\
 \end{bmatrix}
 \end{equation}
-
-Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
+\vspace{5mm}
+Rešitev, ki nam jo poda 2-Opt algoritem je na sliki \ref{resitev_2_opt}:
 
 \begin{figure}[!h]
     
@@ -201,7 +201,7 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
     
 \end{figure}
 
-Še en primer:
+Še en primer za $n=10$:
 
 \begin{figure}[!h]
     
@@ -222,6 +222,8 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 
 \newpage
 \subsection[3-opt algoritem]{3-opt algoritem}
+
+3-optimalni algoritem deluje enako kot 2-optimalni, le da postopoma odstranjujemo tri vozlišča, ju povežemo na drugačen način in preverimo, če je novonastala pot cenejša. Če je nova pot cenejša, jo vzamemo za lokalno optimalno rešitev in nadaljujemo algoritem. En korak 3-Opt algoritma prikazuje spodnja skica.\\
 
 \begin{minipage}{0.3\textwidth}
 \begin{tikzpicture}
@@ -253,6 +255,9 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
 \end{tikzpicture}
 \end{minipage}
 
+\vspace{5 mm}
+Izračunala sva še 3-Opt rešitev za graf z enako matriko \ref{matrika} kot pri 2-Opt algoritmu. Vidmo, da dobimo drugačno rešitev, vendar je cena poti enaka.\\
+
 \begin{figure}[!h]
     
     \begin{minipage}{0.5\textwidth}
@@ -263,11 +268,13 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
     \includegraphics[width=8 cm]{primeri/primer1_3opt.png}
-    \caption{Rešitev primera s 3-opt}
+    \caption{Rešitev primera s 3-Opt}
     \label{resitev_3_opt}
   \end{minipage}
     
 \end{figure}
+
+Tudi na grafu za $n=10$ sva izvedla 3-Opt algoritem. Tu se rešitev razlikuje od rešitve algoritma 2-Opt, razlikuje se tudi cena poti, pri 3-Opt je cena manjša. Pri 2-Opt je cena poti 1595, pri 3-Opt pa 1484, to bomo opazili kasneje, pri poglavju \ref{Časovna zahtevnost} v tabeli \ref{tabela_casov}.
 
 \begin{figure}[!h]
     
@@ -279,7 +286,7 @@ Rešitev, ki nam jo poda 2-opt algoritem je na sliki \ref{resitev_2_opt}:
  \hspace{1cm}
   \begin{minipage}{0.5\textwidth}
     \includegraphics[width=8 cm]{primeri/primer2_3opt.png}
-    \caption{Rešitev primera s 3-opt}
+    \caption{Rešitev primera s 3-Opt}
     \label{resitev_3_opt}
   \end{minipage}
     
@@ -326,32 +333,44 @@ Primer grafa s 5 in 10 vozlišči in končne rešitve.
   \end{minipage}
     
 \end{figure}
-
 \newpage
-
-\section[Časovna zahtevnost in red napake]{Časovna zahtevnost in red napake}
+\section[Časovna zahtevnost]{Časovna zahtevnost}
 Pri 2-Opt algoritmu se red napake giblje med $O(\frac{\log n}{\log (\log n)} )$ in $O(\log n)$, pri 3-Opt algoritmu in Lin-Kernighanovemu algoritmu pa je enak $O(\sqrt[3]{n})$. 
 \\
-V teoriji je časovna zahtevnost za k-Opt algoritem enaka $O(n^{k})$, kjer je n število vozlišč v grafu. Časovna zahtevnost za Lin-Kernighanov algoritem pa je nekoliko manj kot $O(n^{3})$
-V projektni nalogi sva še praktično analizirala časovno zahtevnost vsakega od treh algoritmov. To sva naredila tako, da sva merila, koliko časa vsak algoritem porabi za poln graf v odvisnosti od n. Izračunala sva čase za n = 5, 10, 100... in dobila naslednje rezultate\footnote{Pri merjenju časovne zahtevnosti je pomembno, meriva samo časovno zahtevnost algoritma in ne ostalih stvari, kot so preurejanje in izrisovanje grafa.}:
+
+V teoriji je časovna zahtevnost za k-Opt algoritem enaka $O(n^{k})$, kjer je $n$ število vozlišč v grafu. Časovna zahtevnost za Lin-Kernighanov algoritem pa je nekoliko manj kot $O(n^{3})$
+V projektni nalogi sva še praktično analizirala časovno zahtevnost vsakega od treh algoritmov. To sva naredila tako, da sva merila, koliko časa vsak algoritem porabi za poln graf v odvisnosti od $n$. Izračunala sva čase za različne $n$ in dobila naslednje rezultate, ki jih prikazuje tabela \ref{tabela_casov}, hkrati sva si tudi ogledala, kako se spreminja cena poti pri algoritmih. Vsi grafi, na katerih sva izvajala algoritme so polni (vsako vozlišče je povezano z vsakim) in vse povezave imajo uteži med 0 in 1000\footnote{Pri merjenju časovne zahtevnosti je pomembno, da meriva samo časovno zahtevnost algoritma in ne ostalih stvari, kot so preurejanje in izrisovanje grafa.}:
 
 
 \begin{table}[!h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-n&cena začetne&2-opt&cena 2-opt&3-opt&cena 3-opt&LK&cena LK\\\hline
+$n$&cena začetne&2-Opt&cena 2-Opt&3-Opt&cena 3-Opt&LK&cena LK\\\hline
 5&49&0,000675&41&0,000276&41&0,000154&41\\\hline
-10&4903&0.004748&1595&0,000600&1484&0,000611&1484\\\hline
+10&4903&0,004748&1595&0,000600&1484&0,000611&1484\\\hline
 20&9047&0,03257&1388&0,00801&1555&0,01151&1517\\\hline
 30&11825&0,10143&2255&0,01806&1907&0,04639&1729\\\hline
 50&23556&0,69378&2833&0,18529&2496&0,30218&2319\\\hline
+80&37169&4,97926&3352&0,534838&2890&1,38603&2362\\\hline
 100&46984&11,3602&46984&1,97813&2446&2,31723&2235\\\hline
 200&98344&194,093&4673&22,9016&3007&13,7700&2832\\\hline
 300&156543&1127,92&5365&162,040&2986&94,0348&2630\\\hline
-500&244733&7912.40&6689&402.52&3328&496.36&2900\\\hline
+500&244733&7912,40&6689&402,52&3328&496,36&2900\\\hline
 1000&483979&&&&&&\\\hline
 \end{tabular}
+\caption{Tabela časov izvajanja algoritmov in cen v odvisnosti od $n$}
+\label{tabela_casov}
 \end{table}
+
+Za lažjo predstavo si poglejmo podatke v grafu \ref{casovna_do_100}. Opazimo, da do $n=30$ zahtevajo vsi trije algoritmi probližno enako časa, za rešitev enakega problema, vendar že za $n=100$ vidimo, da je časovna zahtevnost 2-Opt veliko večja in če pogledamo tabelo \ref{tabela_casov}, imamo tudi pri 2-Opt algoritmu veliko slabšo optimalno pot.
+
+\begin{figure}[!h]
+ \begin{center}
+  \includegraphics[width=12 cm]{casovna_zahtevnost_do_100.png}
+  \caption{Časovna zahtevnost vseh treh algoritmov do $n$ = 100}
+  \label{casovna_do_100}
+\end{center}
+\end{figure}
 
 
 \newpage
