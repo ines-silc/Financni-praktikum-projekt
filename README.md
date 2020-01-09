@@ -1,6 +1,8 @@
 # k-opt-and-Lin-Kernighan-algorithms
 
-Kratko poročilo se nahaja v mapi `kratko_porcilo` v datoteki `kratko_porocilo.pdf`
+Kratko poročilo se nahaja v mapi `kratko_porcilo` v datoteki `kratko_porocilo.pdf`.
+
+Poročilo se nahaja v datoteki `porocilo.pdf`. Programi za posamezne algoritme se nahajajo v datotekah `program.py`, `tri_opt.py` in `LK_algoritem.py`. Izvedba algoritmov se nahaja v datoteki `program.ipynb`.
 
 ## Dana navodila
 
