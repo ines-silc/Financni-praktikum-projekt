@@ -334,7 +334,7 @@ Primer grafa s 5 in 10 vozlišči in končne rešitve.
     
 \end{figure}
 \newpage
-\section[Časovna zahtevnost]{Časovna zahtevnost}
+\section{Časovna zahtevnost} \label{Časovna zahtevnost}
 Pri 2-Opt algoritmu se red napake giblje med $O(\frac{\log n}{\log (\log n)} )$ in $O(\log n)$, pri 3-Opt algoritmu in Lin-Kernighanovemu algoritmu pa je enak $O(\sqrt[3]{n})$. 
 \\
 
@@ -352,7 +352,7 @@ $n$&cena začetne&2-Opt&cena 2-Opt&3-Opt&cena 3-Opt&LK&cena LK\\\hline
 30&11825&0,10143&2255&0,01806&1907&0,04639&1729\\\hline
 50&23556&0,69378&2833&0,18529&2496&0,30218&2319\\\hline
 80&37169&4,97926&3352&0,534838&2890&1,38603&2362\\\hline
-100&46984&11,3602&46984&1,97813&2446&2,31723&2235\\\hline
+100&46984&9.4767&3404&1,97813&2446&2,31723&2235\\\hline
 200&98344&194,093&4673&22,9016&3007&13,7700&2832\\\hline
 300&156543&1127,92&5365&162,040&2986&94,0348&2630\\\hline
 500&244733&7912,40&6689&402,52&3328&496,36&2900\\\hline
@@ -387,6 +387,8 @@ Za lažjo predstavo si poglejmo podatke v grafu \ref{casovna_do_100}. Opazimo, d
 \item \emph{3-opt}, [ogled 4.~1.~2020], dostopno na \url{https://en.wikipedia.org/wiki/3-opt}
 
 \item \emph{3-opt: basic algorithm}, [ogled 4.~1.~2020], dostopno na \url{https://tsp-basics.blogspot.com/2017/03/3-opt-iterative-basic-algorithm.html}
+
+\item D. Karapetyan, G. Gutin, \emph{Lin-Kernighan Heuristic Adaptations for the Generalized Traveling Salesman Problem}, [ogled  8.~1.~2020], dostopno na \url{https://arxiv.org/pdf/1003.5330.pdf}
 \end{enumerate}
 
 \end{document}
