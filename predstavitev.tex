@@ -28,54 +28,79 @@ Lin-Kernighanovim algoritmom}
 	\titlepage
 \end {frame}
 
-%\begin{frame}
-%\begin{minipage}{0.3\textwidth}
-%\begin{tikzpicture}
-%  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
-%  \node (n0) at (1,8) {0};
-%  \node (n1) at (5,10)  {1};
-%  \node (n2) at (9,8)  {2};
-%  \node (n5) at (1,4) {5};
-%  \node (n4) at (5,2)  {4};
-%  \node (n3) at (9,4)  {3};
-%
-%  \foreach \from/\to in {n0/n1,n1/n2,n2/n3,n3/n4,n4/n5,n5/n0}
-%    \draw (\from) -- (\to);
-%\end{tikzpicture}
-%\end{minipage}
-%\hspace{0.5cm}
-%\begin{minipage}{0.3\textwidth}
-%\begin{tikzpicture}
-%  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
-%  \node (n0) at (1,8) {0};
-%  \node (n1) at (5,10)  {1};
-%  \node (n2) at (9,8)  {2};
-%  \node (n5) at (1,4) {5};
-%  \node (n4) at (5,2)  {4};
-%  \node (n3) at (9,4)  {3};
-%
-%  \foreach \from/\to in {n0/n2,n1/n2,n1/n3,n3/n4,n4/n5,n5/n0}
-%    \draw (\from) -- (\to);
-%\end{tikzpicture}
-%\end{minipage}
-%\hspace{0.5cm}
-%\begin{minipage}{0.3\textwidth}
-%\begin{tikzpicture}
-%  [scale=.3,auto=left,every node/.style={circle, draw = black!60}]
-%  \node (n0) at (1,8) {0};
-%  \node (n1) at (5,10)  {1};
-%  \node (n2) at (9,8)  {2};
-%  \node (n5) at (1,4) {5};
-%  \node (n4) at (5,2)  {4};
-%  \node (n3) at (9,4)  {3};
-%
-%  \foreach \from/\to in {n0/n2,n1/n2,n1/n3,n3/n5,n4/n5,n4/n0}
-%    \draw (\from) -- (\to);
-%\end{tikzpicture}
-%\end{minipage}\\\vspace{0.5cm}
-%\end{frame}
+\section[Definiranje problema]{Definiranje problema}
+\begin{frame}
+\frametitle{Definicija problema}
+Problem trgovskega potnika oziroma Travelling salesman problem (krajše TSP) je problem, kjer imamo podanih $n$ mest in razdalje med vsemi (za vsak par mest imamo torej podano, koliko sta si oddaljeni). Zanima nas, ali lahko obiščemo vsako mesto in se na koncu vrnemo v prvotno mesto. Če označimo $d_{i, j}$ kot razdaljo mad $i$-tim in $j$-tim mestom, iščemo torej:\\
+
+$$
+\min_{\pi \in S_n} \sum\limits_{i=1}^{n-1} d_{\pi (i), \pi (i+1)} + d_{\pi (n), \pi (1)}
+$$
+
+ kjer je $S_n$ množica vseh permutacij danih $n$ mest. \\
+\vspace{5mm}
+Naivna rešitev je očitna, pogledamo $(n-1)!$ kombinacij, torej iz vsakega mesta v vsako drugo mesto, si zapišemo vse kombinacije in kakšno razdaljo smo prepotovali, ter izberemo tisto možnost, kjer je bila razdalja najkrajša.\\ 
+\end{frame}
 
 \begin{frame}
+\frametitle{Programsko okolje}
+Za projekt sva uporabila programski jezik \texttt{python}. Uporabljala sva naslednje pakete:
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item \texttt{networkx}: za definiranje in generiranje grafov
+
+\item \texttt{random}: za generiranje naključnih števil in seznamov
+
+\item \texttt{matplotlib}: za izrisovanje grafov
+
+\item \texttt{time}: za mertive časovne zahtevnosti
+
+\item \texttt{itertools}: za generiranje prvotne permutacije
+
+\end{itemize}
+
+
+Za preverjanje veljavnosti poti v grafu za problem potujočega trgovca, morava vedeti:
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item Vsaka pot trgovca bo morala imeti vsa vozlišča primarnega grafa
+\item Vsaka pot trgovca bo morala imeti točno toliko povezav kot vozlišč
+\item Dolžina poti bo morala biti enaka številu vozlišč -1
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Osnovni algoritem}
+\begin{verbatim}
+def dva_opt(graf, pot):
+
+    najboljsa_pot = pot
+    cena = cena_poti(graf, pot)    
+    
+    izboljsanje = True
+    while izboljsanje:
+        izboljsanje = False
+        for i in range(1,len(pot) - 2):
+            for j in range(i + 1, len(pot)):
+                if j - i == 1: continue
+                nova_pot = pot[:]
+                nova_pot[i:j] = pot[j - 1:i - 1:-1]
+                nova_cena = cena_poti(graf, nova_pot)
+                if nova_cena < cena:
+                    najboljsa_pot = nova_pot[:]
+                    cena = nova_cena
+                    izboljsanje = True
+        pot = najboljsa_pot
+        
+    return (pot)
+\end{verbatim}
+\end{frame}
+
+\section[Primeri]{Primeri}
+\begin{frame}
+\frametitle{Primer grafa}
 \begin{equation}
 \label{matrika}
 \begin{bmatrix} 
@@ -153,7 +178,9 @@ Lin-Kernighanovim algoritmom}
 \end{figure}
 \end{frame}
 
+\section[Časovna zahtevnost]{Časovna zahtevnost}
 \begin{frame}
+\frametitle{Časovna zahtevnost}
 \begin{table}[!h]
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
